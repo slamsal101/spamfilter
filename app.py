@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
 
+ps=PorterStemmer()
 
 def transform_text(text):
     text=text.lower()
@@ -25,15 +26,15 @@ def transform_text(text):
 
     return" ".join(y)
 
-ps=PorterStemmer()
-
 tfidf =pickle.load(open('vectorizer.pkl','rb'))
 model =pickle.load(open('model.pkl','rb'))
 
 st.title("Email/SMS Spam Classifier")
 input_sms=st.text_input("Enter the message")
-# preprocess
-transformed_sms=transform_text(input_sms)
+
+if st.button('predict'):
+  # preprocess
+   transformed_sms=transform_text(input_sms)
 # vectorize
 vector_input=tfidf.transform([transformed_sms])
 # predict
